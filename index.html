@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rumah Makan B2 Hokky</title>
     <style>
-        /* Global Styles */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
@@ -26,7 +25,6 @@
             background-color: #222;
             color: #fff;
             padding: 1rem;
-            width: 100%;
             box-sizing: border-box;
         }
         .sidebar h2 {
@@ -77,20 +75,6 @@
             border-radius: 8px;
             margin-right: 1.5rem;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-        }
-        th, td {
-            padding: 1rem;
-            border: 1px solid #ddd;
-            text-align: left;
-        }
-        th {
-            background-color: #ff6600;
-            color: white;
-        }
         .btn {
             padding: 0.7rem 1.5rem;
             background-color: #ff6600;
@@ -104,6 +88,21 @@
         .btn:hover {
             background-color: #cc5200;
             transform: translateY(-2px);
+        }
+        .review-item {
+            background-color: #fff;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem;
+        }
+        .review-item h4 {
+            margin: 0 0 0.5rem 0;
+            color: #ff6600;
+        }
+        .review-item p {
+            margin: 0;
         }
         .modal {
             position: fixed;
@@ -127,7 +126,6 @@
             background: none;
             cursor: pointer;
         }
-        /* Responsive Design */
         @media (max-width: 768px) {
             .menu-item img {
                 width: 80px;
@@ -153,30 +151,98 @@
     <div class="container">
         <section id="menu-makanan">
             <h2>Menu Makanan</h2>
-            <div class="menu-item">
+            <div class="menu-item" onclick="showOrderForm('Babi Guling', 50000)">
                 <img src="20.webp" alt="Babi Guling">
                 <div>
                     <h3>Babi Guling</h3>
                     <p>Harga: Rp50,000</p>
                 </div>
             </div>
+            <div class="menu-item" onclick="showOrderForm('Sate Babi', 40000)">
+                <img src="sate.jpeg" alt="Sate Babi">
+                <div>
+                    <h3>Sate Babi</h3>
+                    <p>Harga: Rp40,000</p>
+                </div>
+            </div>
+            <div class="menu-item" onclick="showOrderForm('Rica-Rica', 45000)">
+                <img src="rica.jpeg" alt="Rica-Rica">
+                <div>
+                    <h3>Rica-Rica</h3>
+                    <p>Harga: Rp45,000</p>
+                </div>
+            </div>
+        </section>
+        <section id="ulasan" class="hidden">
+            <h2>Ulasan</h2>
+            <textarea id="review" rows="5" placeholder="Tulis ulasan Anda di sini..." style="width: 100%; margin-bottom: 1rem;"></textarea>
+            <button class="btn" onclick="submitReview()">Kirim Ulasan</button>
+            <div id="review-list" style="margin-top: 1.5rem;"></div>
         </section>
     </div>
     <div id="order-modal" class="modal">
         <button class="close-btn" onclick="closeOrderForm()">&times;</button>
         <h2>Form Pemesanan</h2>
         <form>
-            <!-- Form elements here -->
+            <label for="menu-name">Nama Menu:</label><br>
+            <input type="text" id="menu-name" readonly><br><br>
+
+            <label for="price">Harga Satuan:</label><br>
+            <input type="text" id="price" readonly><br><br>
+
+            <label for="quantity">Jumlah:</label><br>
+            <input type="number" id="quantity" min="1" value="1"><br><br>
+
+            <label for="total">Total Harga:</label><br>
+            <input type="text" id="total" readonly><br><br>
+
+            <button type="button" class="btn" onclick="submitOrder()">Pesan</button>
         </form>
     </div>
     <script>
+        const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+
         function showSection(id) {
-            document.querySelectorAll('section').forEach(sec => sec.style.display = 'none');
-            document.getElementById(id).style.display = 'block';
+            document.querySelectorAll('section').forEach(sec => sec.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
         }
+
+        function showOrderForm(menuName, price) {
+            document.getElementById('menu-name').value = menuName;
+            document.getElementById('price').value = price;
+            document.getElementById('total').value = price;
+
+            document.getElementById('quantity').addEventListener('input', (e) => {
+                const quantity = parseInt(e.target.value) || 1;
+                document.getElementById('total').value = price * quantity;
+            });
+
+            document.getElementById('order-modal').classList.add('visible');
+        }
+
         function closeOrderForm() {
             document.getElementById('order-modal').classList.remove('visible');
         }
+
+        function submitReview() {
+            const reviewText = document.getElementById('review').value.trim();
+            if (!reviewText) {
+                alert("Silakan isi ulasan Anda terlebih dahulu.");
+                return;
+            }
+
+            reviews.push(reviewText);
+            localStorage.setItem('reviews', JSON.stringify(reviews));
+            document.getElementById('review').value = "";
+            displayReviews();
+        }
+
+        function displayReviews() {
+            const reviewList = document.getElementById('review-list');
+            reviewList.innerHTML = reviews.map(review => `<div class="review-item"><h4>Ulasan Pelanggan</h4><p>${review}</p></div>`).join('');
+        }
+
+        document.addEventListener('DOMContentLoaded', displayReviews);
     </script>
 </body>
 </html>
