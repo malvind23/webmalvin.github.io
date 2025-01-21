@@ -5,22 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rumah Makan B2 Hokky</title>
     <style>
+        /* Global Styles */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
         }
         header {
-            background-color: #ff6600;
-            color: #fff;
-            padding: 1rem;
+            background: linear-gradient(45deg, #ff6600, #ff9900);
+            color: white;
             text-align: center;
-            font-size: 1.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            font-size: 1.8rem;
             font-weight: bold;
         }
         .sidebar {
-            background-color: #333;
-            color: white;
+            background-color: #222;
+            color: #fff;
             padding: 1rem;
             width: 100%;
             box-sizing: border-box;
@@ -29,251 +33,150 @@
             margin-bottom: 1rem;
         }
         .sidebar a {
-            display: block;
-            color: white;
+            display: flex;
+            align-items: center;
+            color: #fff;
             text-decoration: none;
-            margin-bottom: 0.5rem;
-            padding: 0.5rem;
-            border-radius: 4px;
-            transition: background-color 0.3s;
+            margin-bottom: 0.7rem;
+            padding: 0.7rem;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.2s;
         }
         .sidebar a:hover {
-            background-color: #555;
+            background-color: #444;
+            transform: scale(1.05);
+        }
+        .sidebar a i {
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
         }
         .container {
-            padding: 1rem;
+            padding: 1.5rem;
         }
         section {
             margin-bottom: 2rem;
         }
         .menu-item {
             display: flex;
-            flex-direction: row;
             align-items: center;
-            margin-bottom: 1rem;
-            cursor: pointer;
+            margin-bottom: 1.5rem;
             border: 1px solid #ddd;
             padding: 1rem;
-            border-radius: 5px;
-            transition: box-shadow 0.3s;
-        }
-        .menu-item img {
-            width: 80px;
-            height: 80px;
-            margin-right: 1rem;
-            border-radius: 5px;
+            border-radius: 8px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
         .menu-item:hover {
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .menu-item img {
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            margin-right: 1.5rem;
         }
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 1rem;
         }
-        table, th, td {
-            border: 1px solid #ddd;
-        }
         th, td {
-            padding: 0.75rem;
+            padding: 1rem;
+            border: 1px solid #ddd;
             text-align: left;
         }
         th {
-            background-color: #f4f4f4;
+            background-color: #ff6600;
+            color: white;
         }
         .btn {
-            padding: 0.5rem 1rem;
+            padding: 0.7rem 1.5rem;
             background-color: #ff6600;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            font-size: 1rem;
+            transition: background-color 0.3s, transform 0.2s;
         }
         .btn:hover {
             background-color: #cc5200;
-        }
-        .hidden {
-            display: none;
-        }
-        .visible {
-            display: block;
+            transform: translateY(-2px);
         }
         .modal {
             position: fixed;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%) scale(0);
             background-color: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             padding: 2rem;
-            border-radius: 8px;
+            border-radius: 10px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
             z-index: 1000;
+        }
+        .modal.visible {
+            transform: translate(-50%, -50%) scale(1);
         }
         .close-btn {
             float: right;
-            background: none;
-            border: none;
             font-size: 1.5rem;
+            border: none;
+            background: none;
             cursor: pointer;
         }
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .sidebar {
-                display: flex;
-                flex-direction: column;
-            }
             .menu-item img {
-                width: 60px;
-                height: 60px;
+                width: 80px;
+                height: 80px;
             }
-            .container {
-                padding: 1rem;
-            }
-            header {
-                font-size: 1.2rem;
+            .btn {
+                font-size: 0.9rem;
+                padding: 0.6rem 1.2rem;
             }
         }
     </style>
 </head>
 <body>
+    <header>
+        Selamat Datang di Rumah Makan B2 Hokky
+    </header>
     <div class="sidebar">
         <h2>Menu</h2>
-        <a href="#menu-makanan" onclick="showSection('menu-makanan')">Menu Makanan</a>
-        <a href="#ulasan" onclick="showSection('ulasan')">Ulasan</a>
-        <a href="#keluar">Keluar</a>
+        <a href="#menu-makanan" onclick="showSection('menu-makanan')"><i>🍴</i> Menu Makanan</a>
+        <a href="#ulasan" onclick="showSection('ulasan')"><i>💬</i> Ulasan</a>
+        <a href="#keluar"><i>🚪</i> Keluar</a>
     </div>
-
     <div class="container">
-        <header>
-            Selamat Datang di Rumah Makan B2 Hokky
-        </header>
-
-        <section id="menu-makanan" class="visible">
+        <section id="menu-makanan">
             <h2>Menu Makanan</h2>
-            <div class="menu-item" onclick="showOrderForm('Babi Guling', 50000)">
+            <div class="menu-item">
                 <img src="20.webp" alt="Babi Guling">
                 <div>
                     <h3>Babi Guling</h3>
                     <p>Harga: Rp50,000</p>
                 </div>
             </div>
-            <div class="menu-item" onclick="showOrderForm('Sate Babi', 40000)">
-                <img src="sate.jpeg" alt="Sate Babi">
-                <div>
-                    <h3>Sate Babi</h3>
-                    <p>Harga: Rp40,000</p>
-                </div>
-            </div>
-            <div class="menu-item" onclick="showOrderForm('Babi Rica', 45000)">
-                <img src="sei jumbo.jpeg" alt="Babi Rica">
-                <div>
-                    <h3>Babi Rica</h3>
-                    <p>Harga: Rp45,000</p>
-                </div>
-            </div>
         </section>
-
-        <section id="ulasan" class="hidden">
-            <h2>Ulasan</h2>
-            <textarea id="review" rows="5" class="form-control" placeholder="Tulis ulasan Anda di sini..."></textarea>
-            <button class="btn mt-2" onclick="submitReview()">Kirim Ulasan</button>
-            <div id="review-list" class="mt-4"></div>
-        </section>
-
     </div>
-
-    <div id="order-modal" class="modal hidden">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeOrderForm()">&times;</button>
-            <h2>Form Pemesanan</h2>
-            <form id="order-form">
-                <label for="menu-name">Nama Menu:</label><br>
-                <input type="text" id="menu-name" name="menu-name" readonly><br><br>
-
-                <label for="price">Harga Satuan:</label><br>
-                <input type="text" id="price" name="price" readonly><br><br>
-
-                <label for="table-number">Nomor Meja:</label><br>
-                <input type="number" id="table-number" name="table-number" min="1" required><br><br>
-
-                <label for="quantity">Jumlah:</label><br>
-                <input type="number" id="quantity" name="quantity" min="1" value="1" required><br><br>
-
-                <label for="total">Total Harga:</label><br>
-                <input type="text" id="total" name="total" readonly><br><br>
-
-                <button type="button" class="btn" onclick="submitOrder()">Pesan</button>
-            </form>
-        </div>
+    <div id="order-modal" class="modal">
+        <button class="close-btn" onclick="closeOrderForm()">&times;</button>
+        <h2>Form Pemesanan</h2>
+        <form>
+            <!-- Form elements here -->
+        </form>
     </div>
-
     <script>
-        const orders = JSON.parse(localStorage.getItem('orders')) || [];
-        const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
-
-        function showSection(sectionId) {
-            const sections = document.querySelectorAll('section');
-            sections.forEach(section => section.classList.add('hidden'));
-            document.getElementById(sectionId).classList.remove('hidden');
+        function showSection(id) {
+            document.querySelectorAll('section').forEach(sec => sec.style.display = 'none');
+            document.getElementById(id).style.display = 'block';
         }
-
-        function showOrderForm(menuName, price) {
-            document.getElementById('menu-name').value = menuName;
-            document.getElementById('price').value = price;
-            document.getElementById('total').value = price;
-
-            document.getElementById('quantity').addEventListener('input', (e) => {
-                const quantity = parseInt(e.target.value) || 1;
-                document.getElementById('total').value = price * quantity;
-            });
-
-            document.getElementById('order-modal').classList.remove('hidden');
-        }
-
         function closeOrderForm() {
-            document.getElementById('order-modal').classList.add('hidden');
+            document.getElementById('order-modal').classList.remove('visible');
         }
-
-        function submitOrder() {
-            const menu = document.getElementById('menu-name').value;
-            const quantity = parseInt(document.getElementById('quantity').value);
-            const totalPrice = parseInt(document.getElementById('total').value);
-            const tableNumber = parseInt(document.getElementById('table-number').value);
-
-            const order = {
-                tableNumber,
-                name: "Pelanggan",
-                menu,
-                quantity,
-                totalPrice
-            };
-
-            orders.push(order);
-            localStorage.setItem('orders', JSON.stringify(orders));
-
-            alert(`Pesanan berhasil!\nMenu: ${menu}\nJumlah: ${quantity}\nTotal: Rp${totalPrice.toLocaleString()}\nNomor Meja: ${tableNumber}`);
-            closeOrderForm();
-        }
-
-        function submitReview() {
-            const reviewText = document.getElementById('review').value.trim();
-            if (!reviewText) {
-                alert("Silakan isi ulasan Anda terlebih dahulu.");
-                return;
-            }
-
-            reviews.push(reviewText);
-            localStorage.setItem('reviews', JSON.stringify(reviews));
-            document.getElementById('review').value = "";
-            displayReviews();
-        }
-
-        function displayReviews() {
-            const reviewList = document.getElementById('review-list');
-            reviewList.innerHTML = reviews.map(review => `<p>${review}</p>`).join('');
-        }
-
-        document.addEventListener('DOMContentLoaded', displayReviews);
     </script>
 </body>
 </html>
