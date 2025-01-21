@@ -6,50 +6,46 @@
     <title>Rumah Makan B2 Hokky</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f8f9fa;
-            color: #333;
+            display: flex;
         }
         header {
-            background: linear-gradient(45deg, #ff6600, #ff9900);
-            color: white;
+            background-color: #ff6600;
+            color: #fff;
+            padding: 1rem;
             text-align: center;
-            padding: 1.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: bold;
         }
         .sidebar {
-            background-color: #222;
-            color: #fff;
+            width: 200px;
+            background-color: #333;
+            color: white;
+            height: 100vh;
+            position: fixed;
             padding: 1rem;
-            box-sizing: border-box;
         }
         .sidebar h2 {
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
         .sidebar a {
-            display: flex;
-            align-items: center;
-            color: #fff;
+            display: block;
+            color: white;
             text-decoration: none;
-            margin-bottom: 0.7rem;
-            padding: 0.7rem;
-            border-radius: 5px;
-            transition: background-color 0.3s, transform 0.2s;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
         }
         .sidebar a:hover {
-            background-color: #444;
-            transform: scale(1.05);
-        }
-        .sidebar a i {
-            margin-right: 0.5rem;
-            font-size: 1.2rem;
+            background-color: #555;
         }
         .container {
-            padding: 1.5rem;
+            margin-left: 220px;
+            padding: 2rem;
+            width: calc(100% - 220px);
         }
         section {
             margin-bottom: 2rem;
@@ -57,99 +53,89 @@
         .menu-item {
             display: flex;
             align-items: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
             border: 1px solid #ddd;
             padding: 1rem;
-            border-radius: 8px;
-            background-color: white;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 5px;
+            transition: box-shadow 0.3s;
         }
         .menu-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
         .menu-item img {
             width: 100px;
             height: 100px;
-            border-radius: 8px;
-            margin-right: 1.5rem;
+            margin-right: 1rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
         }
         .btn {
-            padding: 0.7rem 1.5rem;
+            padding: 0.5rem 1rem;
             background-color: #ff6600;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 5px;
             cursor: pointer;
-            font-size: 1rem;
-            transition: background-color 0.3s, transform 0.2s;
+            transition: background-color 0.3s;
         }
         .btn:hover {
             background-color: #cc5200;
-            transform: translateY(-2px);
         }
-        .review-item {
-            background-color: #fff;
-            padding: 1rem;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            margin-bottom: 1rem;
+        .hidden {
+            display: none;
         }
-        .review-item h4 {
-            margin: 0 0 0.5rem 0;
-            color: #ff6600;
-        }
-        .review-item p {
-            margin: 0;
+        .visible {
+            display: block;
         }
         .modal {
             position: fixed;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%) scale(0);
+            transform: translate(-50%, -50%);
             background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease-in-out;
+            border-radius: 8px;
             z-index: 1000;
-        }
-        .modal.visible {
-            transform: translate(-50%, -50%) scale(1);
         }
         .close-btn {
             float: right;
-            font-size: 1.5rem;
-            border: none;
             background: none;
+            border: none;
+            font-size: 1.5rem;
             cursor: pointer;
-        }
-        @media (max-width: 768px) {
-            .menu-item img {
-                width: 80px;
-                height: 80px;
-            }
-            .btn {
-                font-size: 0.9rem;
-                padding: 0.6rem 1.2rem;
-            }
         }
     </style>
 </head>
 <body>
-    <header>
-        Selamat Datang di Rumah Makan B2 Hokky
-    </header>
     <div class="sidebar">
         <h2>Menu</h2>
-        <a href="#menu-makanan" onclick="showSection('menu-makanan')"><i>🍴</i> Menu Makanan</a>
-        <a href="#ulasan" onclick="showSection('ulasan')"><i>💬</i> Ulasan</a>
-        <a href="#keluar"><i>🚪</i> Keluar</a>
+        <a href="#menu-makanan" onclick="showSection('menu-makanan')">Menu Makanan</a>
+        <a href="#ulasan" onclick="showSection('ulasan')">Ulasan</a>
+        <a href="#keluar">Keluar</a>
     </div>
+
     <div class="container">
-        <section id="menu-makanan">
+        <header>
+            Selamat Datang di Rumah Makan B2 Hokky
+        </header>
+        
+        <!-- Section Menu Makanan -->
+        <section id="menu-makanan" class="visible">
             <h2>Menu Makanan</h2>
             <div class="menu-item" onclick="showOrderForm('Babi Guling', 50000)">
                 <img src="20.webp" alt="Babi Guling">
@@ -165,46 +151,61 @@
                     <p>Harga: Rp40,000</p>
                 </div>
             </div>
-            <div class="menu-item" onclick="showOrderForm('Rica-Rica', 45000)">
-                <img src="rica.jpeg" alt="Rica-Rica">
+            <div class="menu-item" onclick="showOrderForm('Babi Rica', 45000)">
+                <img src="sei jumbo.jpeg" alt="Babi Rica">
                 <div>
-                    <h3>Rica-Rica</h3>
+                    <h3>Babi Rica</h3>
                     <p>Harga: Rp45,000</p>
                 </div>
             </div>
         </section>
+
+        <!-- Section Ulasan -->
         <section id="ulasan" class="hidden">
             <h2>Ulasan</h2>
-            <textarea id="review" rows="5" placeholder="Tulis ulasan Anda di sini..." style="width: 100%; margin-bottom: 1rem;"></textarea>
-            <button class="btn" onclick="submitReview()">Kirim Ulasan</button>
-            <div id="review-list" style="margin-top: 1.5rem;"></div>
+            <textarea id="review" rows="5" class="form-control" placeholder="Tulis ulasan Anda di sini..."></textarea>
+            <button class="btn mt-2" onclick="submitReview()">Kirim Ulasan</button>
+            <div id="review-list" class="mt-4">
+                <!-- Reviews will be displayed here -->
+            </div>
         </section>
+
     </div>
-    <div id="order-modal" class="modal">
-        <button class="close-btn" onclick="closeOrderForm()">&times;</button>
-        <h2>Form Pemesanan</h2>
-        <form>
-            <label for="menu-name">Nama Menu:</label><br>
-            <input type="text" id="menu-name" readonly><br><br>
 
-            <label for="price">Harga Satuan:</label><br>
-            <input type="text" id="price" readonly><br><br>
+    <!-- Popup Form -->
+    <div id="order-modal" class="modal hidden">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeOrderForm()">&times;</button>
+            <h2>Form Pemesanan</h2>
+            <form id="order-form">
+                <label for="menu-name">Nama Menu:</label><br>
+                <input type="text" id="menu-name" name="menu-name" readonly><br><br>
 
-            <label for="quantity">Jumlah:</label><br>
-            <input type="number" id="quantity" min="1" value="1"><br><br>
+                <label for="price">Harga Satuan:</label><br>
+                <input type="text" id="price" name="price" readonly><br><br>
 
-            <label for="total">Total Harga:</label><br>
-            <input type="text" id="total" readonly><br><br>
+                <label for="table-number">Nomor Meja:</label><br>
+                <input type="number" id="table-number" name="table-number" min="1" required><br><br>
 
-            <button type="button" class="btn" onclick="submitOrder()">Pesan</button>
-        </form>
+                <label for="quantity">Jumlah:</label><br>
+                <input type="number" id="quantity" name="quantity" min="1" value="1" required><br><br>
+
+                <label for="total">Total Harga:</label><br>
+                <input type="text" id="total" name="total" readonly><br><br>
+
+                <button type="button" class="btn" onclick="submitOrder()">Pesan</button>
+            </form>
+        </div>
     </div>
+
     <script>
+        const orders = JSON.parse(localStorage.getItem('orders')) || [];
         const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
 
-        function showSection(id) {
-            document.querySelectorAll('section').forEach(sec => sec.classList.add('hidden'));
-            document.getElementById(id).classList.remove('hidden');
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => section.classList.add('hidden'));
+            document.getElementById(sectionId).classList.remove('hidden');
         }
 
         function showOrderForm(menuName, price) {
@@ -217,11 +218,32 @@
                 document.getElementById('total').value = price * quantity;
             });
 
-            document.getElementById('order-modal').classList.add('visible');
+            document.getElementById('order-modal').classList.remove('hidden');
         }
 
         function closeOrderForm() {
-            document.getElementById('order-modal').classList.remove('visible');
+            document.getElementById('order-modal').classList.add('hidden');
+        }
+
+        function submitOrder() {
+            const menu = document.getElementById('menu-name').value;
+            const quantity = parseInt(document.getElementById('quantity').value);
+            const totalPrice = parseInt(document.getElementById('total').value);
+            const tableNumber = parseInt(document.getElementById('table-number').value);
+
+            const order = {
+                tableNumber,
+                name: "Pelanggan",
+                menu,
+                quantity,
+                totalPrice
+            };
+
+            orders.push(order);
+            localStorage.setItem('orders', JSON.stringify(orders));
+
+            alert(`Pesanan berhasil!\nMenu: ${menu}\nJumlah: ${quantity}\nTotal: Rp${totalPrice.toLocaleString()}\nNomor Meja: ${tableNumber}`);
+            closeOrderForm();
         }
 
         function submitReview() {
@@ -239,7 +261,7 @@
 
         function displayReviews() {
             const reviewList = document.getElementById('review-list');
-            reviewList.innerHTML = reviews.map(review => `<div class="review-item"><h4>Ulasan Pelanggan</h4><p>${review}</p></div>`).join('');
+            reviewList.innerHTML = reviews.map(review => `<p>${review}</p>`).join('');
         }
 
         document.addEventListener('DOMContentLoaded', displayReviews);
