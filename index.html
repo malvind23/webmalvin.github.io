@@ -9,7 +9,6 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            display: flex;
         }
         header {
             background-color: #ff6600;
@@ -20,21 +19,20 @@
             font-weight: bold;
         }
         .sidebar {
-            width: 200px;
             background-color: #333;
             color: white;
-            height: 100vh;
-            position: fixed;
             padding: 1rem;
+            width: 100%;
+            box-sizing: border-box;
         }
         .sidebar h2 {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
         .sidebar a {
             display: block;
             color: white;
             text-decoration: none;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
             padding: 0.5rem;
             border-radius: 4px;
             transition: background-color 0.3s;
@@ -43,15 +41,14 @@
             background-color: #555;
         }
         .container {
-            margin-left: 220px;
-            padding: 2rem;
-            width: calc(100% - 220px);
+            padding: 1rem;
         }
         section {
             margin-bottom: 2rem;
         }
         .menu-item {
             display: flex;
+            flex-direction: row;
             align-items: center;
             margin-bottom: 1rem;
             cursor: pointer;
@@ -60,13 +57,14 @@
             border-radius: 5px;
             transition: box-shadow 0.3s;
         }
+        .menu-item img {
+            width: 80px;
+            height: 80px;
+            margin-right: 1rem;
+            border-radius: 5px;
+        }
         .menu-item:hover {
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-        }
-        .menu-item img {
-            width: 100px;
-            height: 100px;
-            margin-right: 1rem;
         }
         table {
             width: 100%;
@@ -119,6 +117,22 @@
             font-size: 1.5rem;
             cursor: pointer;
         }
+        @media (max-width: 768px) {
+            .sidebar {
+                display: flex;
+                flex-direction: column;
+            }
+            .menu-item img {
+                width: 60px;
+                height: 60px;
+            }
+            .container {
+                padding: 1rem;
+            }
+            header {
+                font-size: 1.2rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -133,8 +147,7 @@
         <header>
             Selamat Datang di Rumah Makan B2 Hokky
         </header>
-        
-        <!-- Section Menu Makanan -->
+
         <section id="menu-makanan" class="visible">
             <h2>Menu Makanan</h2>
             <div class="menu-item" onclick="showOrderForm('Babi Guling', 50000)">
@@ -160,19 +173,15 @@
             </div>
         </section>
 
-        <!-- Section Ulasan -->
         <section id="ulasan" class="hidden">
             <h2>Ulasan</h2>
             <textarea id="review" rows="5" class="form-control" placeholder="Tulis ulasan Anda di sini..."></textarea>
             <button class="btn mt-2" onclick="submitReview()">Kirim Ulasan</button>
-            <div id="review-list" class="mt-4">
-                <!-- Reviews will be displayed here -->
-            </div>
+            <div id="review-list" class="mt-4"></div>
         </section>
 
     </div>
 
-    <!-- Popup Form -->
     <div id="order-modal" class="modal hidden">
         <div class="modal-content">
             <button class="close-btn" onclick="closeOrderForm()">&times;</button>
